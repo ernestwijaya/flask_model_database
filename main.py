@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
 import pandas as pd
 import joblib
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 loaded_model = joblib.load("models/model_diabetes.pkl")
 loaded_scaler = joblib.load("models/standar_scaler.pkl")
