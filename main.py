@@ -39,6 +39,10 @@ def predict():
 
     prediction = loaded_model.predict(X_input_scaled)
 
+    prediction_probability = loaded_model.predict_proba(X_input)
+
+    print(loaded_model.classes)
+
     return jsonify({
         "meta": {
             "status": "Success",
