@@ -8,7 +8,7 @@ from flask_cors import CORS
 from flask import Flask, jsonify, request
 
 from tensorflow.keras.preprocessing import image
-from tensorflow.keras.application.mobilenet_v3 import preprocess_input
+from tensorflow.keras.applications.mobilenet_v3 import preprocess_input
 
 
 
@@ -61,14 +61,11 @@ def predict():
         "data": "Positive" if prediction.tolist()[0] == 1 else "Negative"
     })
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
 
 @app.route("/api/predict-rps", methods=["POST"])
 def predict_rps():
     #1. Validasi request file 
-    if 'File' not in request.files: 
+    if 'file' not in request.files: 
         return jsonify({
             "meta" : {
                 "status" : 400,
@@ -101,3 +98,6 @@ def predict_rps():
             "probability" : f"{np.max(prediction) * 100:.2f}%"
         }
     })
+
+if __name__ == '__main__':
+    app.run(debug=True)
